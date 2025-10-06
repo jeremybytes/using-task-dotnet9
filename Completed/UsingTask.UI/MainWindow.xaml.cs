@@ -80,7 +80,15 @@ public partial class MainWindow : Window
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
-        tokenSource?.Cancel();
+        try
+        {
+            tokenSource?.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+            // just ignore this exception
+            // cancellation is not valid here.
+        }
     }
 
     private void ClearListBox()
